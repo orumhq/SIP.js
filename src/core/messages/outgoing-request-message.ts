@@ -1,12 +1,7 @@
 import { Body } from "./body";
 import { NameAddrHeader } from "./name-addr-header";
 import { URI } from "./uri";
-import {
-  createRandomToken,
-  headerize,
-  newTag,
-  str_utf8_length
-} from "./utils";
+import { createRandomToken, headerize, newTag, str_utf8_length } from "./utils";
 
 /**
  * Outgoing request message options.
@@ -22,6 +17,7 @@ export interface OutgoingRequestMessageOptions {
   fromTag?: string;
   forceRport?: boolean;
   hackViaTcp?: boolean;
+  hackViaWS?: boolean;
   optionTags?: Array<string>;
   routeSet?: Array<string>;
   userAgentString?: string;
@@ -33,7 +29,6 @@ export interface OutgoingRequestMessageOptions {
  * @public
  */
 export class OutgoingRequestMessage {
-
   /** Get a copy of the default options. */
   private static getDefaultOptions(): Required<OutgoingRequestMessageOptions> {
     return {
@@ -46,22 +41,27 @@ export class OutgoingRequestMessage {
       fromTag: "",
       forceRport: false,
       hackViaTcp: false,
+      hackViaWS: false,
       optionTags: ["outbound"],
       routeSet: [],
       userAgentString: "sip.js",
-      viaHost: ""
+      viaHost: "",
     };
   }
 
-  private static makeNameAddrHeader(uri: URI, displayName: string, tag: string): NameAddrHeader {
-    const parameters: {[name: string]: string} = {};
+  private static makeNameAddrHeader(
+    uri: URI,
+    displayName: string,
+    tag: string
+  ): NameAddrHeader {
+    const parameters: { [name: string]: string } = {};
     if (tag) {
       parameters.tag = tag;
     }
     return new NameAddrHeader(uri, displayName, parameters);
   }
 
-  public readonly headers: {[name: string]: Array<string>} = {};
+  public readonly headers: { [name: string]: Array<string> } = {};
 
   public readonly method: string;
   public readonly ruri: URI;
@@ -75,9 +75,10 @@ export class OutgoingRequestMessage {
   public readonly callId: string;
   public cseq: number;
   public extraHeaders: Array<string> = [];
-  public body: { body: string, contentType: string } | undefined;
+  public body: { body: string; contentType: string } | undefined;
 
-  private options: Required<OutgoingRequestMessageOptions> = OutgoingRequestMessage.getDefaultOptions();
+  private options: Required<OutgoingRequestMessageOptions> =
+    OutgoingRequestMessage.getDefaultOptions();
 
   constructor(
     method: string,
@@ -92,7 +93,7 @@ export class OutgoingRequestMessage {
     if (options) {
       this.options = {
         ...this.options,
-        ...options
+        ...options,
       };
       if (this.options.optionTags && this.options.optionTags.length) {
         this.options.optionTags = this.options.optionTags.slice();
@@ -113,7 +114,7 @@ export class OutgoingRequestMessage {
       // this.body = { ...body };
       this.body = {
         body: body.content,
-        contentType: body.contentType
+        contentType: body.contentType,
       };
     }
 
@@ -126,15 +127,25 @@ export class OutgoingRequestMessage {
     // From
     this.fromURI = fromURI.clone();
     this.fromTag = this.options.fromTag ? this.options.fromTag : newTag();
-    this.from = OutgoingRequestMessage.makeNameAddrHeader(this.fromURI, this.options.fromDisplayName, this.fromTag);
+    this.from = OutgoingRequestMessage.makeNameAddrHeader(
+      this.fromURI,
+      this.options.fromDisplayName,
+      this.fromTag
+    );
 
     // To
     this.toURI = toURI.clone();
     this.toTag = this.options.toTag;
-    this.to = OutgoingRequestMessage.makeNameAddrHeader(this.toURI, this.options.toDisplayName, this.toTag);
+    this.to = OutgoingRequestMessage.makeNameAddrHeader(
+      this.toURI,
+      this.options.toDisplayName,
+      this.toTag
+    );
 
     // Call-ID
-    this.callId = this.options.callId ? this.options.callId : this.options.callIdPrefix + createRandomToken(15);
+    this.callId = this.options.callId
+      ? this.options.callId
+      : this.options.callIdPrefix + createRandomToken(15);
 
     // CSeq
     this.cseq = this.options.cseq;
@@ -227,7 +238,7 @@ export class OutgoingRequestMessage {
    * @param value - header value
    */
   public setHeader(name: string, value: string | Array<string>): void {
-    this.headers[headerize(name)] = (value instanceof Array) ? value : [value];
+    this.headers[headerize(name)] = value instanceof Array ? value : [value];
   }
 
   /**
@@ -251,6 +262,9 @@ export class OutgoingRequestMessage {
     // FIXME: Hack
     if (this.options.hackViaTcp) {
       scheme = "TCP";
+    }
+    if (this.options.hackViaWS) {
+      scheme = "WS";
     }
     let via = "SIP/2.0/" + scheme;
     via += " " + this.options.viaHost + ";branch=" + branch;
@@ -288,7 +302,8 @@ export class OutgoingRequestMessage {
       } else {
         if (this.body.body && this.body.contentType) {
           msg += "Content-Type: " + this.body.contentType + "\r\n";
-          msg += "Content-Length: " + str_utf8_length(this.body.body) + "\r\n\r\n";
+          msg +=
+            "Content-Length: " + str_utf8_length(this.body.body) + "\r\n\r\n";
           msg += this.body.body;
         } else {
           msg += "Content-Length: " + 0 + "\r\n\r\n";
