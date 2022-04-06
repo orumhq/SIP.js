@@ -27,6 +27,7 @@ export declare namespace UA {
         hackIpInContact?: boolean;
         hackAllowUnregisteredOptionTags?: boolean;
         hackViaTcp?: boolean;
+        hackViaWS?: boolean;
         hackWssInTransport?: boolean;
         hostportParams?: any;
         log?: {

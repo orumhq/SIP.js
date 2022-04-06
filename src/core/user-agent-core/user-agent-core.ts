@@ -231,6 +231,7 @@ export class UserAgentCore {
     const fromDisplayName = this.configuration.displayName;
     const forceRport = this.configuration.viaForceRport;
     const hackViaTcp = this.configuration.hackViaTcp;
+    const hackViaWS = this.configuration.hackViaWS;
     const optionTags = this.configuration.supportedOptionTags.slice();
     if (method === C.REGISTER) {
       optionTags.push("path", "gruu");
@@ -247,6 +248,7 @@ export class UserAgentCore {
       forceRport,
       fromDisplayName,
       hackViaTcp,
+      hackViaWS,
       optionTags,
       routeSet,
       userAgentString,

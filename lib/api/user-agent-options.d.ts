@@ -96,6 +96,11 @@ export interface UserAgentOptions {
      * Hack
      * @deprecated TBD
      */
+    hackViaWS?: boolean;
+    /**
+     * Hack
+     * @deprecated TBD
+     */
     hackWssInTransport?: boolean;
     /**
      * Indicates whether log messages should be written to the browser console.

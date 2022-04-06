@@ -46,6 +46,10 @@ export interface UserAgentCoreConfiguration {
      */
     hackViaTcp: boolean;
     /**
+     * Force Via header field transport to TCP.
+     */
+    hackViaWS: boolean;
+    /**
      * Preloaded route set.
      */
     routeSet: Array<string>;

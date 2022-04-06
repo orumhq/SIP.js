@@ -1,7 +1,7 @@
 /*!
  * 
  *  SIP version 0.15.3
- *  Copyright (c) 2014-2019 Junction Networks, Inc <http://www.onsip.com>
+ *  Copyright (c) 2014-2022 Junction Networks, Inc <http://www.onsip.com>
  *  Homepage: https://sipjs.com
  *  License: https://sipjs.com/license/
  * 
@@ -3473,6 +3473,7 @@ var OutgoingRequestMessage = /** @class */ (function () {
             fromTag: "",
             forceRport: false,
             hackViaTcp: false,
+            hackViaWS: false,
             optionTags: ["outbound"],
             routeSet: [],
             userAgentString: "sip.js",
@@ -3584,6 +3585,9 @@ var OutgoingRequestMessage = /** @class */ (function () {
         // FIXME: Hack
         if (this.options.hackViaTcp) {
             scheme = "TCP";
+        }
+        else if (this.options.hackViaWS) {
+            scheme = "WS";
         }
         var via = "SIP/2.0/" + scheme;
         via += " " + this.options.viaHost + ";branch=" + branch;
@@ -10139,6 +10143,7 @@ var UserAgentCore = /** @class */ (function () {
         var fromDisplayName = this.configuration.displayName;
         var forceRport = this.configuration.viaForceRport;
         var hackViaTcp = this.configuration.hackViaTcp;
+        var hackViaWS = this.configuration.hackViaWS;
         var optionTags = this.configuration.supportedOptionTags.slice();
         if (method === messages_1.C.REGISTER) {
             optionTags.push("path", "gruu");
@@ -10154,6 +10159,7 @@ var UserAgentCore = /** @class */ (function () {
             forceRport: forceRport,
             fromDisplayName: fromDisplayName,
             hackViaTcp: hackViaTcp,
+            hackViaWS: hackViaWS,
             optionTags: optionTags,
             routeSet: routeSet,
             userAgentString: userAgentString,
