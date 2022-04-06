@@ -107,6 +107,7 @@ export class UserAgent extends EventEmitter {
     hackAllowUnregisteredOptionTags: false,
     hackIpInContact: false,
     hackViaTcp: false,
+    hackViaWS: false,
     hackWssInTransport: false,
     logBuiltinEnabled: true,
     logConfiguration: true,
@@ -679,6 +680,7 @@ export class UserAgent extends EventEmitter {
       displayName: this.options.displayName,
       loggerFactory: this.loggerFactory,
       hackViaTcp: this.options.hackViaTcp,
+      hackViaWS: this.options.hackViaWS,
       routeSet:
         this.options.usePreloadedRoute && this.transport.server && this.transport.server.sipUri ?
           [this.transport.server.sipUri] :

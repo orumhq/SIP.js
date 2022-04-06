@@ -120,6 +120,12 @@ export interface UserAgentOptions {
    * Hack
    * @deprecated TBD
    */
+  hackViaWS?: boolean;
+
+  /**
+   * Hack
+   * @deprecated TBD
+   */
   hackWssInTransport?: boolean;
 
   /**

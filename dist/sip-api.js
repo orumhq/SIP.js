@@ -3586,7 +3586,7 @@ var OutgoingRequestMessage = /** @class */ (function () {
         if (this.options.hackViaTcp) {
             scheme = "TCP";
         }
-        if (this.options.hackViaWS) {
+        else if (this.options.hackViaWS) {
             scheme = "WS";
         }
         var via = "SIP/2.0/" + scheme;
@@ -10143,6 +10143,7 @@ var UserAgentCore = /** @class */ (function () {
         var fromDisplayName = this.configuration.displayName;
         var forceRport = this.configuration.viaForceRport;
         var hackViaTcp = this.configuration.hackViaTcp;
+        var hackViaWS = this.configuration.hackViaWS;
         var optionTags = this.configuration.supportedOptionTags.slice();
         if (method === messages_1.C.REGISTER) {
             optionTags.push("path", "gruu");
@@ -10158,6 +10159,7 @@ var UserAgentCore = /** @class */ (function () {
             forceRport: forceRport,
             fromDisplayName: fromDisplayName,
             hackViaTcp: hackViaTcp,
+            hackViaWS: hackViaWS,
             optionTags: optionTags,
             routeSet: routeSet,
             userAgentString: userAgentString,
@@ -19554,6 +19556,7 @@ var UserAgent = /** @class */ (function (_super) {
             displayName: this.options.displayName,
             loggerFactory: this.loggerFactory,
             hackViaTcp: this.options.hackViaTcp,
+            hackViaWS: this.options.hackViaWS,
             routeSet: this.options.usePreloadedRoute && this.transport.server && this.transport.server.sipUri ?
                 [this.transport.server.sipUri] :
                 [],
@@ -19747,6 +19750,7 @@ var UserAgent = /** @class */ (function (_super) {
         hackAllowUnregisteredOptionTags: false,
         hackIpInContact: false,
         hackViaTcp: false,
+        hackViaWS: false,
         hackWssInTransport: false,
         logBuiltinEnabled: true,
         logConfiguration: true,

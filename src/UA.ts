@@ -64,6 +64,7 @@ export namespace UA {
     hackIpInContact?: boolean;
     hackAllowUnregisteredOptionTags?: boolean;
     hackViaTcp?: boolean;
+    hackViaWS?: boolean;
     hackWssInTransport?: boolean;
     hostportParams?: any;
     log?: {
@@ -1320,6 +1321,7 @@ export function makeUserAgentCoreConfigurationFromUA(ua: UA): UserAgentCoreConfi
   const contact = ua.contact;
   const displayName = ua.configuration.displayName ? ua.configuration.displayName : "";
   const hackViaTcp = ua.configuration.hackViaTcp ? true : false;
+  const hackViaWS = ua.configuration.hackViaWS ? true : false;
   const routeSet =
      ua.configuration.usePreloadedRoute && ua.transport.server && ua.transport.server.sipUri ?
       [ua.transport.server.sipUri] :
@@ -1357,6 +1359,7 @@ export function makeUserAgentCoreConfigurationFromUA(ua: UA): UserAgentCoreConfi
     contact,
     displayName,
     hackViaTcp,
+    hackViaWS,
     loggerFactory: ua.getLoggerFactory(),
     routeSet,
     sipjsId,

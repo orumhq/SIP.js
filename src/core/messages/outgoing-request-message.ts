@@ -253,8 +253,7 @@ export class OutgoingRequestMessage {
     // FIXME: Hack
     if (this.options.hackViaTcp) {
       scheme = "TCP";
-    }
-    if (this.options.hackViaWS) {
+    } else if (this.options.hackViaWS) {
       scheme = "WS";
     }
     let via = "SIP/2.0/" + scheme;
