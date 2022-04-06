@@ -22,6 +22,7 @@ export interface OutgoingRequestMessageOptions {
   fromTag?: string;
   forceRport?: boolean;
   hackViaTcp?: boolean;
+  hackViaWS?: boolean;
   optionTags?: Array<string>;
   routeSet?: Array<string>;
   userAgentString?: string;
@@ -46,6 +47,7 @@ export class OutgoingRequestMessage {
       fromTag: "",
       forceRport: false,
       hackViaTcp: false,
+      hackViaWS: false,
       optionTags: ["outbound"],
       routeSet: [],
       userAgentString: "sip.js",
@@ -251,6 +253,9 @@ export class OutgoingRequestMessage {
     // FIXME: Hack
     if (this.options.hackViaTcp) {
       scheme = "TCP";
+    }
+    if (this.options.hackViaWS) {
+      scheme = "WS";
     }
     let via = "SIP/2.0/" + scheme;
     via += " " + this.options.viaHost + ";branch=" + branch;

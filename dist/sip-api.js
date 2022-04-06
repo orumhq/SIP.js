@@ -1,7 +1,7 @@
 /*!
  * 
  *  SIP version 0.15.3
- *  Copyright (c) 2014-2019 Junction Networks, Inc <http://www.onsip.com>
+ *  Copyright (c) 2014-2022 Junction Networks, Inc <http://www.onsip.com>
  *  Homepage: https://sipjs.com
  *  License: https://sipjs.com/license/
  * 
@@ -3473,6 +3473,7 @@ var OutgoingRequestMessage = /** @class */ (function () {
             fromTag: "",
             forceRport: false,
             hackViaTcp: false,
+            hackViaWS: false,
             optionTags: ["outbound"],
             routeSet: [],
             userAgentString: "sip.js",
@@ -3584,6 +3585,9 @@ var OutgoingRequestMessage = /** @class */ (function () {
         // FIXME: Hack
         if (this.options.hackViaTcp) {
             scheme = "TCP";
+        }
+        if (this.options.hackViaWS) {
+            scheme = "WS";
         }
         var via = "SIP/2.0/" + scheme;
         via += " " + this.options.viaHost + ";branch=" + branch;
