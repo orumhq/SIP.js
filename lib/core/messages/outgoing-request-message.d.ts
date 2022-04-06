@@ -15,7 +15,6 @@ export interface OutgoingRequestMessageOptions {
     fromTag?: string;
     forceRport?: boolean;
     hackViaTcp?: boolean;
-    hackViaWS?: boolean;
     optionTags?: Array<string>;
     routeSet?: Array<string>;
     userAgentString?: string;
