@@ -3497,7 +3497,7 @@ var OutgoingRequestMessage = /** @class */ (function () {
             // this.body = { ...body };
             this.body = {
                 body: body.content,
-                contentType: body.contentType
+                contentType: body.contentType,
             };
         }
         // Method
@@ -3513,7 +3513,9 @@ var OutgoingRequestMessage = /** @class */ (function () {
         this.toTag = this.options.toTag;
         this.to = OutgoingRequestMessage.makeNameAddrHeader(this.toURI, this.options.toDisplayName, this.toTag);
         // Call-ID
-        this.callId = this.options.callId ? this.options.callId : this.options.callIdPrefix + utils_1.createRandomToken(15);
+        this.callId = this.options.callId
+            ? this.options.callId
+            : this.options.callIdPrefix + utils_1.createRandomToken(15);
         // CSeq
         this.cseq = this.options.cseq;
         // The relative order of header fields with different field names is not
@@ -3546,7 +3548,7 @@ var OutgoingRequestMessage = /** @class */ (function () {
             optionTags: ["outbound"],
             routeSet: [],
             userAgentString: "sip.js",
-            viaHost: ""
+            viaHost: "",
         };
     };
     OutgoingRequestMessage.makeNameAddrHeader = function (uri, displayName, tag) {
@@ -3630,7 +3632,7 @@ var OutgoingRequestMessage = /** @class */ (function () {
      * @param value - header value
      */
     OutgoingRequestMessage.prototype.setHeader = function (name, value) {
-        this.headers[utils_1.headerize(name)] = (value instanceof Array) ? value : [value];
+        this.headers[utils_1.headerize(name)] = value instanceof Array ? value : [value];
     };
     /**
      * The Via header field indicates the transport used for the transaction
@@ -3663,6 +3665,8 @@ var OutgoingRequestMessage = /** @class */ (function () {
         if (this.options.forceRport) {
             via += ";rport";
         }
+        // tslint:disable-next-line:no-console
+        console.log("THE VIA HEADER HERE", via);
         this.setHeader("via", via);
         this.branch = branch;
     };
@@ -3691,7 +3695,8 @@ var OutgoingRequestMessage = /** @class */ (function () {
             else {
                 if (this.body.body && this.body.contentType) {
                     msg += "Content-Type: " + this.body.contentType + "\r\n";
-                    msg += "Content-Length: " + utils_1.str_utf8_length(this.body.body) + "\r\n\r\n";
+                    msg +=
+                        "Content-Length: " + utils_1.str_utf8_length(this.body.body) + "\r\n\r\n";
                     msg += this.body.body;
                 }
                 else {
