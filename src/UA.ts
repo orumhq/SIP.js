@@ -882,6 +882,7 @@ export class UA extends EventEmitter {
 
       // Hacks
       hackViaTcp: false,
+      hackViaWS: false,
       hackIpInContact: false,
       hackWssInTransport: false,
       hackAllowUnregisteredOptionTags: false,
@@ -1140,6 +1141,12 @@ export class UA extends EventEmitter {
         hackViaTcp: (hackViaTcp: boolean): boolean | undefined => {
           if (typeof hackViaTcp === "boolean") {
             return hackViaTcp;
+          }
+        },
+
+        hackViaWS: (hackViaWS: boolean): boolean | undefined => {
+          if (typeof hackViaWS === "boolean") {
+            return hackViaWS;
           }
         },
 

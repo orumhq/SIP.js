@@ -270,8 +270,6 @@ export class OutgoingRequestMessage {
     if (this.options.forceRport) {
       via += ";rport";
     }
-    // tslint:disable-next-line:no-console
-    console.log("THE VIA HEADER HERE", via);
     this.setHeader("via", via);
     this.branch = branch;
   }

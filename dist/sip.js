@@ -3665,8 +3665,6 @@ var OutgoingRequestMessage = /** @class */ (function () {
         if (this.options.forceRport) {
             via += ";rport";
         }
-        // tslint:disable-next-line:no-console
-        console.log("THE VIA HEADER HERE", via);
         this.setHeader("via", via);
         this.branch = branch;
     };
@@ -17714,6 +17712,7 @@ var UA = /** @class */ (function (_super) {
             noAnswerTimeout: 60,
             // Hacks
             hackViaTcp: false,
+            hackViaWS: false,
             hackIpInContact: false,
             hackWssInTransport: false,
             hackAllowUnregisteredOptionTags: false,
@@ -17932,6 +17931,11 @@ var UA = /** @class */ (function (_super) {
                 hackViaTcp: function (hackViaTcp) {
                     if (typeof hackViaTcp === "boolean") {
                         return hackViaTcp;
+                    }
+                },
+                hackViaWS: function (hackViaWS) {
+                    if (typeof hackViaWS === "boolean") {
+                        return hackViaWS;
                     }
                 },
                 hackIpInContact: function (hackIpInContact) {
