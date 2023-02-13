@@ -17,6 +17,7 @@ export interface TransportOptions
 |  Property | Modifiers | Type | Description |
 |  --- | --- | --- | --- |
 |  [connectionTimeout](./sip.js.transportoptions.connectiontimeout.md) |  | number | Seconds to wait for WebSocket to connect before giving up. |
+|  [headerProtocol](./sip.js.transportoptions.headerprotocol.md) |  | string | The protocol to use in Via header declarations. If not specified, will be inferred from the server URL. |
 |  [server](./sip.js.transportoptions.server.md) |  | string | URL of WebSocket server to connect with. For example, "wss://localhost:8080". |
 |  [traceSip](./sip.js.transportoptions.tracesip.md) |  | boolean | If true, messages sent and received by the transport are logged. |
 

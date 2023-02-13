@@ -34,6 +34,7 @@ export class Transport implements Transport_2 {
 // @public
 export interface TransportOptions {
     connectionTimeout?: number;
+    headerProtocol?: string;
     // @internal
     keepAliveDebounce?: number;
     // @internal
