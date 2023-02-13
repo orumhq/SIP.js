@@ -102,9 +102,9 @@ export class Transport implements TransportDefinition {
       throw new Error("Invalid scheme in WebSocket Server URL");
     }
 
-    // If an explicit header protocol has been specified, use that, but
-    // fall back to the scheme specified in the server address.
-    if (this.configuration.headerProtocol !== "") {
+    // Use the explicit header protocol if defined, but fall back to the
+    // server's indicated scheme
+    if (typeof this.configuration.headerProtocol === "string" && this.configuration.headerProtocol !== "") {
       this._protocol = this.configuration.headerProtocol.toUpperCase();
     } else {
       this._protocol = parsed.scheme.toUpperCase();
