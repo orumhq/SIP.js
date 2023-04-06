@@ -1,6 +1,6 @@
 /*!
  * 
- *  SIP version 0.21.2
+ *  SIP version 0.21.2-orum
  *  Copyright (c) 2014-2023 Junction Networks, Inc <http://www.onsip.com>
  *  Homepage: https://sipjs.com
  *  License: https://sipjs.com/license/
@@ -56,7 +56,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "LIBRARY_VERSION": () => (/* binding */ LIBRARY_VERSION)
 /* harmony export */ });
-const LIBRARY_VERSION = "0.21.2";
+const LIBRARY_VERSION = "0.21.2-orum";
 
 
 /***/ }),

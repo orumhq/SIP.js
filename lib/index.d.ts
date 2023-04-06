@@ -1,4 +1,4 @@
-declare const version = "0.21.2";
+declare const version = "0.21.2-orum";
 declare const name = "sip.js";
 export { name, version };
 export * from "./api/index.js";

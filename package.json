@@ -1,8 +1,8 @@
 {
-  "name": "sip.js",
-  "title": "SIP.js",
+  "name": "sip.js-orum",
+  "title": "SIP.js-orum",
   "description": "A SIP library for JavaScript",
-  "version": "0.21.2",
+  "version": "0.21.2-orum",
   "license": "MIT",
   "main": "./lib/index.js",
   "files": [
